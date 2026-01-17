@@ -1,0 +1,309 @@
+import React from 'react';
+import { TrendingUp, Target, Lock } from 'lucide-react';
+import { PainPoints } from './components/PainPoints';
+import { PricingCard } from './components/PricingCard';
+import { Disclaimer } from './components/Disclaimer';
+import { STRIPE_PAYMENT_LINK } from './constants';
+import { Button } from './components/Button';
+
+const App: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-dark-900 text-gray-100 font-sans selection:bg-yellow-500/30">
+      
+      {/* Navbar */}
+      <nav className="fixed w-full z-50 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            {/* Logo Image - Please ensure 'logo.jpg' exists in your root folder */}
+            <img 
+              src="./logo.jpg" 
+              alt="Ai-Horster Logo" 
+              className="w-10 h-10 rounded-lg border border-yellow-500/20 object-cover shadow-lg shadow-yellow-500/10"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+            <span className="font-bold text-xl tracking-tight text-white">Ai-Horster</span>
+          </div>
+          <a href={STRIPE_PAYMENT_LINK} target="_blank" rel="noopener noreferrer" 
+             className="text-sm font-bold bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-400 transition-colors">
+            立即入會
+          </a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="relative pt-32 pb-20 px-4 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-yellow-500/10 blur-[100px] -z-10 rounded-full"></div>
+        
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-sm font-medium animate-fade-in-up">
+            <Lock className="w-4 h-4" /> 私密群組 • 名額有限
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight text-white">
+            每日只係 <span className="gold-gradient-text">$26</span><br/>
+            換一個贏錢嘅機會，值唔值？
+          </h1>
+          
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            與其每個月輸幾千蚊比馬會，不如用 $800 買一個贏錢嘅系統。
+            想在這個月追返失去嘅？
+          </p>
+
+          <div className="pt-8">
+            <Button href={STRIPE_PAYMENT_LINK} className="text-lg shadow-yellow-500/20 shadow-2xl">
+              👉 立即獲取重心貼士
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Pain Points Section */}
+      <PainPoints />
+
+      {/* Value Proposition Section */}
+      <section className="py-20 px-4 bg-dark-900 relative">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+          <FeatureBox 
+            icon={<Target className="w-8 h-8 text-yellow-400" />}
+            title="每日 1-2 場重心"
+            desc="經過專業數據過濾，只選勝率最高的賽事 (Bankers)。重質不重量。"
+          />
+          <FeatureBox 
+            icon={<Lock className="w-8 h-8 text-yellow-400" />}
+            title="堅料內幕消息"
+            desc="馬房落飛、球隊陣容第一手消息，早過莊家一步掌握先機。"
+          />
+          <FeatureBox 
+            icon={<TrendingUp className="w-8 h-8 text-yellow-400" />}
+            title="即場走地指導"
+            desc="帶你避開假盤，精準捕捉入球時機，擴大盈利。"
+          />
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-20 px-4 bg-dark-800">
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <h2 className="text-3xl font-bold text-white mb-4">數口好簡單</h2>
+          <p className="text-gray-400">
+            只要跟中我地一場重心，你個月費已經即時回本！<br/>
+            之後嘅每一場，全部都係 <span className="text-emerald-400 font-bold">純利潤 (Net Profit)</span>。
+          </p>
+        </div>
+        <PricingCard />
+      </section>
+
+      {/* Footer / Disclaimer */}
+      <Disclaimer />
+
+    </div>
+  );
+};
+
+const FeatureBox: React.FC<{ icon: React.ReactNode, title: string, desc: string }> = ({ icon, title, desc }) => (
+  <div className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors duration-300">
+    <div className="bg-yellow-500/10 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+      {icon}
+    </div>
+    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+    <p className="text-gray-400 leading-relaxed">{desc}</p>
+  </div>
+);
+
+export default App;
+// REPLACE THIS WITH YOUR ACTUAL STRIPE CHECKOUT LINK
+export const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/28E14n9hw8zKcrEghP0kE00"; 
+
+// REPLACE THIS WITH YOUR ACTUAL WHATSAPP NUMBER (International format without +)
+export const WHATSAPP_NUMBER = "85255064634";
+
+export const WHATSAPP_LINK = "https://wa.me/85255064634?text=%E6%9F%A5%E8%A9%A2%E5%85%A5%E7%BE%A4%E8%B3%87%E8%A8%8A";
+<!DOCTYPE html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ai-Horster | 專業數據分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gold: {
+                400: '#FACC15',
+                500: '#EAB308',
+                600: '#CA8A04',
+              },
+              dark: {
+                900: '#0F172A',
+                800: '#1E293B',
+                700: '#334155',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #0F172A;
+        color: #F8FAFC;
+      }
+      .gold-gradient-text {
+        background: linear-gradient(to right, #FACC15, #EAB308, #FACC15);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error("Could not find root element to mount to");
+}
+
+const root = ReactDOM.createRoot(rootElement);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+{
+  "name": "Ai-Horster",
+  "description": "Premium sports investment analysis and betting tips membership platform.",
+  "requestFramePermissions": []
+}
+{
+  "name": "ai-horster",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "lucide-react": "^0.562.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
+
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
+
+# Run and deploy your AI Studio app
+
+This contains everything you need to run your app locally.
+
+View your app in AI Studio: https://ai.studio/apps/drive/1x_dbpcWUNBE9RhYkV9HlpngtoesbtSPT
+
+## Run Locally
+
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
+
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
+}
+import React from 'react';
+
+export interface FeatureItem {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+export interface PainPoint {
+  text: string;
+}
+import path from 'path';
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig(({ mode }) => {
+    const env = loadEnv(mode, '.', '');
+    return {
+      server: {
+        port: 3000,
+        host: '0.0.0.0',
+      },
+      plugins: [react()],
+      define: {
+        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+      },
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '.'),
+        }
+      }
+    };
+});
